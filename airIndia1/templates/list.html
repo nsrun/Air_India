@@ -1,0 +1,204 @@
+{% extends 'menubar.html' %}
+
+{% block content %}
+<style>
+    .results-wrapper {
+        background-color: var(--ai-light);
+        padding: 50px 0;
+        min-height: 80vh;
+    }
+    .page-title {
+        color: var(--ai-dark);
+        font-weight: 700;
+        margin-bottom: 30px;
+        border-left: 5px solid var(--ai-red);
+        padding-left: 15px;
+    }
+    .flight-card {
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        margin-bottom: 25px;
+        border: 1px solid #eee;
+        transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .flight-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        border-color: #ddd;
+    }
+    .flight-header {
+        background-color: #fcfcfc;
+        border-bottom: 1px solid #eee;
+        padding: 15px 25px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-radius: 12px 12px 0 0;
+    }
+    .flight-brand {
+        font-weight: 600;
+        color: var(--ai-red);
+        font-size: 1.1rem;
+    }
+    .flight-id {
+        color: #888;
+        font-size: 0.9rem;
+    }
+    .flight-body {
+        padding: 25px;
+    }
+    .route-info {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    .city {
+        font-size: 1.4rem;
+        font-weight: 700;
+        color: var(--ai-dark);
+    }
+    .time-date {
+        color: #666;
+        font-size: 0.9rem;
+        margin-top: 5px;
+    }
+    .flight-duration {
+        text-align: center;
+        flex-grow: 1;
+        margin: 0 20px;
+        position: relative;
+    }
+    .flight-line {
+        height: 2px;
+        background-color: #ccc;
+        width: 100%;
+        margin: 10px 0;
+        position: relative;
+    }
+    .flight-line::after {
+        content: '\f0fb';
+        font-family: 'Font Awesome 6 Free';
+        font-weight: 900;
+        position: absolute;
+        top: -8px;
+        left: 50%;
+        transform: translateX(-50%);
+        color: var(--ai-red);
+        background: white;
+        padding: 0 5px;
+    }
+    .price-section {
+        border-left: 1px solid #eee;
+        padding-left: 25px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    .price {
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: var(--ai-dark);
+        margin-bottom: 5px;
+    }
+    .seats-left {
+        color: #d9534f;
+        font-size: 0.85rem;
+        font-weight: 600;
+        margin-bottom: 15px;
+    }
+    .btn-book {
+        background-color: var(--ai-red);
+        color: white;
+        font-weight: 600;
+        border-radius: 6px;
+        padding: 10px 20px;
+        border: none;
+        width: 100%;
+        transition: all 0.3s;
+    }
+    .btn-book:hover {
+        background-color: var(--ai-red-hover);
+        color: white;
+    }
+    .no-flights {
+        text-align: center;
+        padding: 50px;
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    }
+</style>
+
+<div class="results-wrapper">
+    <div class="container">
+        <h2 class="page-title">Available Flights</h2>
+        
+        {% if flights %}
+            {% for z in flights %}
+            <div class="flight-card">
+                <div class="flight-header">
+                    <div class="flight-brand">
+                        <i class="fa-solid fa-plane mr-2"></i>{{ z.flight_name }}
+                    </div>
+                    <div class="flight-id">
+                        Flight ID: #{{ z.id }}
+                    </div>
+                </div>
+                <div class="flight-body">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="route-info">
+                                <div class="text-left">
+                                    <div class="city">{{ z.source }}</div>
+                                    <div class="time-date">{{ z.date }} <br> {{ z.time }}</div>
+                                </div>
+                                <div class="flight-duration">
+                                    <div class="text-muted small">Direct Flight</div>
+                                    <div class="flight-line"></div>
+                                </div>
+                                <div class="text-right">
+                                    <div class="city">{{ z.dest }}</div>
+                                    <div class="time-date">{{ z.date }}</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="price-section">
+                                <div class="price">₹{{ z.price }}</div>
+                                <div class="seats-left"><i class="fa-solid fa-chair mr-1"></i>{{ z.rem }} seats remaining</div>
+                                
+                                <form method="POST" action="{% url 'bookings' %}">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="flight_id" value="{{ z.id }}">
+                                    <div class="input-group mb-2">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text bg-white"><i class="fa-solid fa-users"></i></span>
+                                        </div>
+                                        <input type="number" name="no_seats" class="form-control" placeholder="Seats" required min="1" max="{{ z.rem }}">
+                                    </div>
+                                    <button type="submit" class="btn btn-book">Book Now</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+            <div class="no-flights">
+                <i class="fa-solid fa-plane-slash fa-3x text-muted mb-3"></i>
+                <h4 class="text-muted">No flights available for this route.</h4>
+                <p>Please try searching for a different date or destination.</p>
+                <a href="/bookflight" class="btn btn-dark mt-3">Go Back to Search</a>
+            </div>
+        {% endif %}
+
+        {% if error %}
+        <div class="alert alert-danger mt-4 text-center">
+            <i class="fa-solid fa-circle-exclamation mr-2"></i>{{ error }}
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

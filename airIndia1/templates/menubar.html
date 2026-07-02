@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Air India | Flight Booking</title>
+    <!-- Modern Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Bootstrap CSS for layout utilities -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    
+    <style>
+        :root {
+            --ai-red: #e31837;
+            --ai-red-hover: #b8102a;
+            --ai-dark: #222222;
+            --ai-gold: #cba052;
+            --ai-light: #f8f9fa;
+        }
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--ai-light);
+            color: var(--ai-dark);
+        }
+        /* Custom Navbar */
+        .ai-navbar {
+            background-color: #ffffff;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            padding: 15px 40px;
+        }
+        .ai-navbar .navbar-brand {
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--ai-red) !important;
+            letter-spacing: -0.5px;
+        }
+        .ai-navbar .nav-link {
+            color: var(--ai-dark) !important;
+            font-weight: 600;
+            margin: 0 10px;
+            transition: color 0.3s ease;
+        }
+        .ai-navbar .nav-link:hover {
+            color: var(--ai-red) !important;
+        }
+        .ai-btn-primary {
+            background-color: var(--ai-red);
+            color: white !important;
+            border-radius: 25px;
+            padding: 8px 25px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(227, 24, 55, 0.2);
+        }
+        .ai-btn-primary:hover {
+            background-color: var(--ai-red-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(227, 24, 55, 0.3);
+        }
+        
+        /* Global Card Styling */
+        .ai-card {
+            background: white;
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+        .ai-card:hover {
+            transform: translateY(-5px);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <nav class="navbar navbar-expand-lg ai-navbar sticky-top">
+        <a class="navbar-brand" href="/"><i class="fa-solid fa-plane-departure mr-2"></i>AIR INDIA</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="fa fa-bars"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mx-auto">
+                <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="/bookflight">Book Flight</a></li>
+                <li class="nav-item"><a class="nav-link" href="/seebookings">Manage Booking</a></li>
+                <li class="nav-item"><a class="nav-link" href="/about">About Us</a></li>
+                <li class="nav-item"><a class="nav-link" href="/contact">Contact</a></li>
+            </ul>
+            <ul class="navbar-nav ml-auto">
+                {% if request.user.is_active %}
+                <li class="nav-item">
+                    <a class="nav-link ai-btn-primary" href="{% url 'signout' %}">Sign Out</a>
+                </li>
+                {% else %}
+                <li class="nav-item">
+                    <a class="nav-link ai-btn-primary" href="{% url 'signin' %}"><i class="fa-regular fa-user mr-2"></i>Sign In</a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content Block -->
+    <main class="min-vh-100">
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white pt-5 pb-3 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <h5 class="text-uppercase font-weight-bold mb-3" style="color: var(--ai-gold);">Air India</h5>
+                    <p>Experience the warmth of Indian hospitality in the skies. We connect you to the world with comfort and care.</p>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <h5 class="text-uppercase font-weight-bold mb-3" style="color: var(--ai-gold);">Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="/bookflight" class="text-white-50 text-decoration-none">Book a Flight</a></li>
+                        <li><a href="/seebookings" class="text-white-50 text-decoration-none">Manage Booking</a></li>
+                        <li><a href="/about" class="text-white-50 text-decoration-none">About Us</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <h5 class="text-uppercase font-weight-bold mb-3" style="color: var(--ai-gold);">Contact</h5>
+                    <ul class="list-unstyled text-white-50">
+                        <li><i class="fa-solid fa-phone mr-2"></i> +91 123 456 7890</li>
+                        <li><i class="fa-solid fa-envelope mr-2"></i> contact@airindia-clone.com</li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="bg-secondary">
+            <div class="text-center text-white-50 mt-3">
+                <small>&copy; 2026 Air India Booking System. All Rights Reserved.</small>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"></script>
+</body>
+</html>

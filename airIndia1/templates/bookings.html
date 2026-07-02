@@ -1,0 +1,132 @@
+{% extends 'menubar.html' %}
+
+{% block content %}
+<style>
+    .confirm-wrapper {
+        min-height: 80vh;
+        background-color: #f4f7f6;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 50px 15px;
+    }
+    .confirm-card {
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        text-align: center;
+        padding: 50px;
+        max-width: 600px;
+        width: 100%;
+        border-top: 5px solid #28a745;
+    }
+    .success-icon {
+        color: #28a745;
+        font-size: 5rem;
+        margin-bottom: 20px;
+    }
+    .confirm-title {
+        font-weight: 700;
+        color: var(--ai-dark);
+        margin-bottom: 10px;
+    }
+    .confirm-text {
+        color: #666;
+        font-size: 1.1rem;
+        margin-bottom: 30px;
+    }
+    .btn-bill {
+        background-color: var(--ai-red);
+        color: white;
+        font-weight: 600;
+        padding: 12px 30px;
+        border-radius: 25px;
+        border: none;
+        transition: all 0.3s;
+    }
+    .btn-bill:hover {
+        background-color: var(--ai-red-hover);
+        color: white;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(227, 24, 55, 0.3);
+    }
+    
+    /* Modal Styling */
+    .modal-content {
+        border-radius: 12px;
+        border: none;
+        overflow: hidden;
+    }
+    .modal-header {
+        background-color: var(--ai-red);
+        color: white;
+        border-bottom: none;
+    }
+    .modal-title {
+        font-weight: 600;
+    }
+    .modal-header .close {
+        color: white;
+        opacity: 0.8;
+    }
+    .list-group-item {
+        border-left: none;
+        border-right: none;
+        display: flex;
+        justify-content: space-between;
+        padding: 15px 20px;
+    }
+    .list-group-item:first-child {
+        border-top: none;
+    }
+    .list-group-item b {
+        color: var(--ai-dark);
+    }
+    .total-cost {
+        background-color: #f8f9fa;
+        font-size: 1.2rem;
+        font-weight: bold;
+        color: var(--ai-red) !important;
+    }
+</style>
+
+<div class="confirm-wrapper">
+    <div class="confirm-card">
+        <i class="fa-solid fa-circle-check success-icon"></i>
+        <h2 class="confirm-title">Booking Confirmed!</h2>
+        <p class="confirm-text">Your flight has been successfully booked. Thank you for choosing Air India. Have a safe journey!</p>
+        
+        <button type="button" class="btn btn-bill" data-toggle="modal" data-target="#myModal">
+            <i class="fa-solid fa-file-invoice mr-2"></i>View Billing Details
+        </button>
+    </div>
+</div>
+
+<!-- Billing Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="myModalLabel"><i class="fa-solid fa-receipt mr-2"></i>Billing Details</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body p-0">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item"><b>Flight Name:</b> <span>{{ book.flight_name }}</span></li>
+                    <li class="list-group-item"><b>Route:</b> <span>{{ book.source }} <i class="fa-solid fa-arrow-right mx-2 text-muted"></i> {{ book.dest }}</span></li>
+                    <li class="list-group-item"><b>Date & Time:</b> <span>{{ book.date }} at {{ book.time }}</span></li>
+                    <li class="list-group-item"><b>Number of Seats:</b> <span>{{ book.nos }}</span></li>
+                    <li class="list-group-item"><b>Price per Seat:</b> <span>₹{{ book.price }}</span></li>
+                    <li class="list-group-item total-cost"><b>Total Cost:</b> <span>₹{{ total }}</span></li>
+                </ul>
+            </div>
+            <div class="modal-footer bg-light">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <a href="/seebookings" class="btn btn-dark">Go to My Bookings</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

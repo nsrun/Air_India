@@ -1,0 +1,54 @@
+{% extends 'menubar.html' %}
+
+{% block content %}
+<style>
+    .message-wrapper {
+        min-height: 80vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: var(--ai-light);
+        padding: 40px 15px;
+    }
+    .message-card {
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        text-align: center;
+        padding: 50px;
+        max-width: 500px;
+        width: 100%;
+        border-top: 5px solid #28a745;
+    }
+    .success-icon {
+        color: #28a745;
+        font-size: 5rem;
+        margin-bottom: 20px;
+    }
+    .btn-action {
+        background-color: var(--ai-red);
+        color: white;
+        font-weight: 600;
+        padding: 10px 30px;
+        border-radius: 25px;
+        margin-top: 20px;
+        transition: all 0.3s;
+        text-decoration: none;
+        display: inline-block;
+    }
+    .btn-action:hover {
+        background-color: var(--ai-red-hover);
+        color: white;
+        transform: translateY(-2px);
+    }
+</style>
+
+<div class="message-wrapper">
+    <div class="message-card">
+        <i class="fa-solid fa-face-smile-beam success-icon"></i>
+        <h2 class="font-weight-bold text-dark">Thank You!</h2>
+        <p class="text-muted mt-3 mb-4">You have successfully signed up. Welcome to the Air India family.</p>
+        <a href="{% url 'signin' %}" class="btn btn-action">Sign In Now</a>
+    </div>
+</div>
+{% endblock %}

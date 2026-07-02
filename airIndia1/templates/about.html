@@ -1,0 +1,60 @@
+{% extends 'menubar.html' %}
+
+{% block content %}
+<style>
+    .about-header {
+        background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1542296332-2e4473faf563?q=80&w=2070&auto=format&fit=crop') no-repeat center center/cover;
+        color: white;
+        padding: 100px 0;
+        text-align: center;
+    }
+    .about-header h1 {
+        font-weight: 700;
+        font-size: 3.5rem;
+    }
+    .about-content {
+        padding: 60px 15px;
+        background-color: var(--ai-light);
+    }
+    .about-card {
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        padding: 40px;
+        margin-bottom: 30px;
+    }
+    .about-icon {
+        color: var(--ai-red);
+        font-size: 3rem;
+        margin-bottom: 20px;
+    }
+</style>
+
+<div class="about-header">
+    <div class="container">
+        <h1>About Air India</h1>
+        <p class="lead">Connecting people, places, and cultures for over decades.</p>
+    </div>
+</div>
+
+<div class="about-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 mb-4">
+                <div class="about-card h-100">
+                    <i class="fa-solid fa-plane-up about-icon"></i>
+                    <h3 class="font-weight-bold">Our Journey</h3>
+                    <p class="text-muted">Since our inception, Air India has been the pride of the nation, carrying the Indian flag across the globe. We offer an unmatched network of domestic and international flights, ensuring you reach your destination with comfort and warmth.</p>
+                </div>
+            </div>
+            <div class="col-md-6 mb-4">
+                <div class="about-card h-100">
+                    <i class="fa-solid fa-heart about-icon"></i>
+                    <h3 class="font-weight-bold">Our Promise</h3>
+                    <p class="text-muted">We are committed to providing a safe, reliable, and delightful flying experience. From our world-class cabins to our renowned Indian hospitality, every detail is crafted to make you feel at home in the skies.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,51 @@
+{% extends 'menubar.html' %}
+
+{% block content %}
+<style>
+    .message-wrapper {
+        min-height: 80vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: var(--ai-light);
+        padding: 40px 15px;
+    }
+    .message-card {
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        text-align: center;
+        padding: 50px;
+        max-width: 500px;
+        width: 100%;
+        border-top: 5px solid var(--ai-red);
+    }
+    .error-icon {
+        color: var(--ai-red);
+        font-size: 5rem;
+        margin-bottom: 20px;
+    }
+    .btn-back {
+        background-color: var(--ai-dark);
+        color: white;
+        font-weight: 600;
+        padding: 10px 30px;
+        border-radius: 25px;
+        margin-top: 20px;
+        transition: all 0.3s;
+    }
+    .btn-back:hover {
+        background-color: var(--ai-red);
+        color: white;
+    }
+</style>
+
+<div class="message-wrapper">
+    <div class="message-card">
+        <i class="fa-solid fa-triangle-exclamation error-icon"></i>
+        <h2 class="font-weight-bold text-dark">Oops! Something went wrong</h2>
+        <p class="text-muted mt-3 mb-4">{{ error }}</p>
+        <a href="javascript:history.back()" class="btn btn-back">Go Back</a>
+    </div>
+</div>
+{% endblock %}

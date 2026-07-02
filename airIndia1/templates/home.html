@@ -1,0 +1,173 @@
+{% extends 'menubar.html' %}
+
+{% block content %}
+<style>
+    /* Hero Section */
+    .hero-section {
+        position: relative;
+        height: 80vh;
+        min-height: 600px;
+        background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1436491865332-7a61a109cc05?q=80&w=2074&auto=format&fit=crop') no-repeat center center/cover;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        text-align: center;
+    }
+    .hero-content h1 {
+        font-size: 4rem;
+        font-weight: 700;
+        margin-bottom: 20px;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    }
+    .hero-content p {
+        font-size: 1.5rem;
+        font-weight: 300;
+        margin-bottom: 40px;
+        color: var(--ai-light);
+    }
+    
+    /* Search Widget */
+    .search-widget {
+        background: white;
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        max-width: 800px;
+        margin: -100px auto 50px auto;
+        position: relative;
+        z-index: 10;
+    }
+    .search-widget .form-control {
+        border-radius: 8px;
+        padding: 12px 15px;
+        border: 1px solid #ddd;
+        height: auto;
+    }
+    .btn-search {
+        background-color: var(--ai-red);
+        color: white;
+        font-weight: bold;
+        border: none;
+        border-radius: 8px;
+        padding: 12px 30px;
+        width: 100%;
+        transition: all 0.3s;
+    }
+    .btn-search:hover {
+        background-color: var(--ai-red-hover);
+        color: white;
+    }
+
+    /* Offers Section */
+    .offers-section {
+        padding: 60px 0;
+        background-color: var(--ai-light);
+    }
+    .section-title {
+        color: var(--ai-dark);
+        font-weight: 700;
+        margin-bottom: 40px;
+        text-align: center;
+    }
+    .section-title span {
+        color: var(--ai-red);
+    }
+    .offer-card {
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        background: white;
+        transition: transform 0.3s;
+    }
+    .offer-card:hover {
+        transform: translateY(-10px);
+    }
+    .offer-img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+    }
+    .offer-body {
+        padding: 20px;
+    }
+    .offer-title {
+        font-weight: 600;
+        color: var(--ai-dark);
+        margin-bottom: 10px;
+    }
+    .offer-text {
+        color: #666;
+        font-size: 0.9rem;
+    }
+</style>
+
+<!-- Hero Section -->
+<div class="hero-section">
+    <div class="hero-content container">
+        <h1>Experience the New Air India</h1>
+        <p>Connecting India to the World with Comfort and Elegance.</p>
+    </div>
+</div>
+
+<!-- Flight Search Widget -->
+<div class="container">
+    <div class="search-widget">
+        <h4 class="mb-4 font-weight-bold text-dark">Book a Flight</h4>
+        <form action="/bookflight">
+            <div class="row">
+                <div class="col-md-5 mb-3">
+                    <label class="text-muted font-weight-bold"><i class="fa-solid fa-plane-departure mr-2 text-danger"></i>From</label>
+                    <input type="text" class="form-control" placeholder="Origin City or Airport" required>
+                </div>
+                <div class="col-md-5 mb-3">
+                    <label class="text-muted font-weight-bold"><i class="fa-solid fa-plane-arrival mr-2 text-danger"></i>To</label>
+                    <input type="text" class="form-control" placeholder="Destination City or Airport" required>
+                </div>
+                <div class="col-md-2 mb-3 d-flex align-items-end">
+                    <button type="submit" class="btn btn-search">Search</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Special Offers Section -->
+<div class="offers-section">
+    <div class="container">
+        <h2 class="section-title">Exclusive <span>Offers</span></h2>
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="offer-card">
+                    <img src="https://images.unsplash.com/photo-1524492412937-b28074a5d7da?q=80&w=2071&auto=format&fit=crop" class="offer-img" alt="Taj Mahal">
+                    <div class="offer-body">
+                        <h5 class="offer-title">Explore India</h5>
+                        <p class="offer-text">Special fares on domestic flights. Discover the beauty of incredible India.</p>
+                        <a href="/bookflight" class="text-danger font-weight-bold text-decoration-none">Book Now <i class="fa-solid fa-arrow-right ml-1"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="offer-card">
+                    <img src="https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?q=80&w=2070&auto=format&fit=crop" class="offer-img" alt="New York">
+                    <div class="offer-body">
+                        <h5 class="offer-title">Fly to New York</h5>
+                        <p class="offer-text">Non-stop flights from Delhi and Mumbai to JFK. Experience luxury in the skies.</p>
+                        <a href="/bookflight" class="text-danger font-weight-bold text-decoration-none">Book Now <i class="fa-solid fa-arrow-right ml-1"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="offer-card">
+                    <img src="https://images.unsplash.com/photo-1548013146-72479768bada?q=80&w=2076&auto=format&fit=crop" class="offer-img" alt="Business Class">
+                    <div class="offer-body">
+                        <h5 class="offer-title">Business Class Upgrade</h5>
+                        <p class="offer-text">Elevate your journey with our newly upgraded Business Class cabins.</p>
+                        <a href="/about" class="text-danger font-weight-bold text-decoration-none">Learn More <i class="fa-solid fa-arrow-right ml-1"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
